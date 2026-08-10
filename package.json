@@ -1,0 +1,28 @@
+{
+  "name": "trade-union-learning",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Trade Union Learning Platform — LMS for junior nursing care training",
+  "workspaces": [
+    "apps/web",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=web",
+    "build": "npm run build --workspace=web",
+    "build:demo": "VITE_APP_MODE=demo VITE_BASE_PATH=/${npm_package_config_pages_base}/ npm run build --workspace=web",
+    "preview": "npm run preview --workspace=web",
+    "lint": "npm run lint --workspace=web",
+    "api:serve": "php -S 127.0.0.1:8080 -t apps/api/public apps/api/public/index.php",
+    "api:seed": "php apps/api/bin/seed.php",
+    "api:admin": "php apps/api/bin/create-admin.php",
+    "api:import": "php apps/api/bin/import-course.php content/course/course.json",
+    "api:smoke": "php apps/api/tests/smoke.php"
+  },
+  "config": {
+    "pages_base": "trade-union-test-online"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

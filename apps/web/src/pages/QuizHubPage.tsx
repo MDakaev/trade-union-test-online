@@ -1,0 +1,63 @@
+import { ArrowRight, Clock3, GraduationCap, Target, Trophy } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { useApp } from '../lib/app-context'
+
+export function QuizHubPage() {
+  const { course, progress } = useApp()
+  const quizzes = course.quizzes?.length
+    ? course.quizzes
+    : [{ id: 'final', title: 'Итоговый тест', topic: 'Итоговый контроль', estimatedMinutes: 12 }]
+
+  return (
+    <div className="quiz-hub">
+      <header className="quiz-hub__header">
+        <p className="eyebrow">Проверка знаний</p>
+        <h1>Каталог тестов</h1>
+        <p className="page-subtitle">
+          Итоговый экзамен и промежуточные контроли. Результаты сохраняются на этом устройстве.
+        </p>
+      </header>
+
+      <div className="quiz-hub__grid">
+        {quizzes.map((quiz) => {
+          const published = course.questions.filter(
+            (question) => question.quizId === quiz.id && question.status === 'published',
+          ).length
+          const last = progress.attempts.find((attempt) => attempt.quizId === quiz.id)
+          const percent = last && last.total > 0 ? Math.round((last.score / last.total) * 100) : null
+
+          return (
+            <article key={quiz.id} className="quiz-hub-card">
+              <div className="quiz-hub-card__icon" aria-hidden="true">
+                <GraduationCap size={24} />
+              </div>
+              <div className="quiz-hub-card__body">
+                <p className="eyebrow">{quiz.topic}</p>
+                <h2>{quiz.title}</h2>
+                {quiz.subtitle ? <p>{quiz.subtitle}</p> : null}
+                <div className="quiz-hub-card__meta">
+                  <span>
+                    <Target size={15} /> {published} вопросов
+                  </span>
+                  <span>
+                    <Clock3 size={15} /> ≈ {quiz.estimatedMinutes} мин
+                  </span>
+                  {percent !== null ? (
+                    <span>
+                      <Trophy size={15} /> {percent}%
+                    </span>
+                  ) : (
+                    <span>Ещё не проходили</span>
+                  )}
+                </div>
+              </div>
+              <Link className="primary-button" to={`/quiz/${quiz.id}`}>
+                {last ? 'Пройти снова' : 'Начать'} <ArrowRight size={17} />
+              </Link>
+            </article>
+          )
+        })}
+      </div>
+    </div>
+  )
+}

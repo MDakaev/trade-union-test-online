@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://trade-union.local/schemas/course.schema.json",
+  "title": "TradeUnionCourse",
+  "type": "object",
+  "required": ["id", "title", "modules", "lessons", "questions", "version"],
+  "properties": {
+    "version": { "type": "string" },
+    "id": { "type": "string" },
+    "title": { "type": "string" },
+    "subtitle": { "type": "string" },
+    "brand": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "primaryColor": { "type": "string" },
+        "gradeScale": {
+          "type": "object",
+          "properties": {
+            "five": { "type": "number" },
+            "four": { "type": "number" },
+            "three": { "type": "number" }
+          }
+        }
+      }
+    },
+    "modules": { "type": "array" },
+    "lessons": { "type": "array" },
+    "quizzes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "topic", "estimatedMinutes"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "subtitle": { "type": "string" },
+          "topic": { "type": "string" },
+          "estimatedMinutes": { "type": "number" }
+        }
+      }
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "text", "options", "correctOptionId", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "quizId": { "type": "string" },
+          "text": { "type": "string" },
+          "topic": { "type": "string" },
+          "correctOptionId": { "type": "string" },
+          "explanation": { "type": "string" },
+          "source": { "type": "string" },
+          "status": { "enum": ["draft", "published", "needs_review"] }
+        }
+      }
+    }
+  }
+}

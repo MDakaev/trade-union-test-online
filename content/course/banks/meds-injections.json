@@ -1,0 +1,887 @@
+{
+  "quizId": "meds-injections",
+  "title": "Лекарства и инъекции",
+  "count": 29,
+  "published": 27,
+  "needs_review": 2,
+  "questions": [
+    {
+      "id": "meds-q1",
+      "quizId": "meds-injections",
+      "text": "Лекарственные средства, входящие в список А и Б, хранят:",
+      "topic": "Лекарства",
+      "options": [
+        {
+          "id": "a",
+          "text": "раздельно в сейфе"
+        },
+        {
+          "id": "b",
+          "text": "в холодильнике"
+        },
+        {
+          "id": "c",
+          "text": "в стеклянных шкафах в процедурном кабинете"
+        },
+        {
+          "id": "d",
+          "text": "в шкафу, под замком"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Списки А и Б хранят раздельно в сейфе (под замком, с раздельным учётом).",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q2",
+      "quizId": "meds-injections",
+      "text": "Ответственный за хранение ключа от сейфа назначается:",
+      "topic": "Лекарства",
+      "options": [
+        {
+          "id": "a",
+          "text": "жеребьевкой на планерке"
+        },
+        {
+          "id": "b",
+          "text": "решением коллектива"
+        },
+        {
+          "id": "c",
+          "text": "приказом главного врача ЛПО"
+        },
+        {
+          "id": "d",
+          "text": "по желанию"
+        }
+      ],
+      "correctOptionId": "c",
+      "explanation": "Ответственный за ключ от сейфа назначается приказом главного врача ЛПО.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q3",
+      "quizId": "meds-injections",
+      "text": "Введение наркотического анальгетика врач обязан обосновать в:",
+      "topic": "Лекарства",
+      "options": [
+        {
+          "id": "a",
+          "text": "температурном листе"
+        },
+        {
+          "id": "b",
+          "text": "истории болезни"
+        },
+        {
+          "id": "c",
+          "text": "сестринской истории"
+        },
+        {
+          "id": "d",
+          "text": "журнале учета наркотических средств"
+        }
+      ],
+      "correctOptionId": "b",
+      "explanation": "Обоснование введения наркотического анальгетика врач фиксирует в истории болезни.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q4",
+      "quizId": "meds-injections",
+      "text": "Внутривенное введение производится путем:",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "впрыскивания"
+        },
+        {
+          "id": "b",
+          "text": "венесекции"
+        },
+        {
+          "id": "c",
+          "text": "иньекции"
+        },
+        {
+          "id": "d",
+          "text": "венепункции"
+        }
+      ],
+      "correctOptionId": "d",
+      "explanation": "Внутривенное введение растворов выполняют путём венепункции.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q5",
+      "quizId": "meds-injections",
+      "text": "При струйном способе одномоментно внутривенно можно ввести:",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "2000 мл"
+        },
+        {
+          "id": "b",
+          "text": "до 20 мл"
+        },
+        {
+          "id": "c",
+          "text": "50 мл"
+        },
+        {
+          "id": "d",
+          "text": "до 500 мл"
+        }
+      ],
+      "correctOptionId": "b",
+      "explanation": "Струйно (болюсно) одномоментно вводят обычно до 20 мл раствора.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q6",
+      "quizId": "meds-injections",
+      "text": "Температура вводимого внутривенно раствора должна быть:",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "20-22 °C"
+        },
+        {
+          "id": "b",
+          "text": "10-15 °C"
+        },
+        {
+          "id": "c",
+          "text": "50 °C"
+        },
+        {
+          "id": "d",
+          "text": "38-40 °C"
+        }
+      ],
+      "correctOptionId": "d",
+      "explanation": "Растворы для в/в введения подогревают примерно до температуры тела — 38–40 °C.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q7",
+      "quizId": "meds-injections",
+      "text": "Попадание под кожу хлорида кальция 10% вызывает:",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "некроз тканей"
+        },
+        {
+          "id": "b",
+          "text": "абсцесс"
+        },
+        {
+          "id": "c",
+          "text": "пирогенную реакцию"
+        },
+        {
+          "id": "d",
+          "text": "лекарственную эмболию"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "10% раствор хлорида кальция при попадании под кожу вызывает некроз тканей.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q8",
+      "quizId": "meds-injections",
+      "text": "Выписку лекарств из аптеки производит медсестра:",
+      "topic": "Лекарства",
+      "options": [
+        {
+          "id": "a",
+          "text": "процедурная"
+        },
+        {
+          "id": "b",
+          "text": "палатная"
+        },
+        {
+          "id": "c",
+          "text": "старшая"
+        },
+        {
+          "id": "d",
+          "text": "главная"
+        }
+      ],
+      "correctOptionId": "c",
+      "explanation": "Лекарства из аптеки получает (выписывает) старшая медицинская сестра.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q9",
+      "quizId": "meds-injections",
+      "text": "В специально прошнурованном журнале с пронумерованными страницами производится учет лекарственных средств:",
+      "topic": "Лекарства",
+      "options": [
+        {
+          "id": "a",
+          "text": "антибиотиков"
+        },
+        {
+          "id": "b",
+          "text": "эфирсодержащих"
+        },
+        {
+          "id": "c",
+          "text": "наркотиков, сильнодействующих"
+        },
+        {
+          "id": "d",
+          "text": "дорогостоящих"
+        }
+      ],
+      "correctOptionId": "c",
+      "explanation": "В прошнурованном журнале учитывают наркотические и сильнодействующие средства.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q10",
+      "quizId": "meds-injections",
+      "text": "Наружный способ - это применение лекарственных средств:",
+      "topic": "Пути введения",
+      "options": [
+        {
+          "id": "a",
+          "text": "на кожу"
+        },
+        {
+          "id": "b",
+          "text": "через прямую кишку"
+        },
+        {
+          "id": "c",
+          "text": "в полость сустава"
+        },
+        {
+          "id": "d",
+          "text": "на слизистые"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Наружный путь — нанесение лекарственных средств на кожу.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q11",
+      "quizId": "meds-injections",
+      "text": "Энтеральный способ - это применение лекарственных средств:",
+      "topic": "Пути введения",
+      "options": [
+        {
+          "id": "a",
+          "text": "на кожу"
+        },
+        {
+          "id": "b",
+          "text": "через прямую кишку, через рот"
+        },
+        {
+          "id": "c",
+          "text": "внутрикожно"
+        },
+        {
+          "id": "d",
+          "text": "в полость носа"
+        }
+      ],
+      "correctOptionId": "b",
+      "explanation": "Энтеральный путь — через рот и через прямую кишку.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q12",
+      "quizId": "meds-injections",
+      "text": "Парентеральный способ - это применение лекарственных средств:",
+      "topic": "Пути введения",
+      "options": [
+        {
+          "id": "a",
+          "text": "на кожу"
+        },
+        {
+          "id": "b",
+          "text": "через дыхательные пути"
+        },
+        {
+          "id": "c",
+          "text": "через рот, через прямую кишку"
+        },
+        {
+          "id": "d",
+          "text": "подкожно, внутримышечно, внутривенно"
+        }
+      ],
+      "correctOptionId": "d",
+      "explanation": "Парентеральный путь — подкожно, внутримышечно, внутривенно.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q13",
+      "quizId": "meds-injections",
+      "text": "К преимуществу энтерального пути введения лекарств относятся:",
+      "topic": "Пути введения",
+      "options": [
+        {
+          "id": "a",
+          "text": "многообразие лекарственных форм"
+        },
+        {
+          "id": "b",
+          "text": "применение в нестерильном виде"
+        },
+        {
+          "id": "c",
+          "text": "невозможность точной дозировки"
+        },
+        {
+          "id": "d",
+          "text": "быстрота действия, точность дозировки"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Преимущество энтерального пути — многообразие лекарственных форм и простота применения.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q14",
+      "quizId": "meds-injections",
+      "text": "К преимуществу парентерального пути введения лекарств относят:",
+      "topic": "Пути введения",
+      "options": [
+        {
+          "id": "a",
+          "text": "применение стерильных лекарственных форм"
+        },
+        {
+          "id": "b",
+          "text": "многообразие лекарственных форм"
+        },
+        {
+          "id": "c",
+          "text": "невозможность точной дозировки"
+        },
+        {
+          "id": "d",
+          "text": "быстрота действия, поступает в кровь в неизменном виде"
+        }
+      ],
+      "correctOptionId": "d",
+      "explanation": "Парентеральный путь даёт быстрый эффект и поступление препарата в кровь в неизменённом виде.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q15",
+      "quizId": "meds-injections",
+      "text": "Осложнение, возникающее при подкожном введении инсулина:",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "масляная эмболия"
+        },
+        {
+          "id": "b",
+          "text": "постинсулиновая липодистрофия"
+        },
+        {
+          "id": "c",
+          "text": "воздушная эмболия"
+        },
+        {
+          "id": "d",
+          "text": "тромбофлебит"
+        }
+      ],
+      "correctOptionId": "b",
+      "explanation": "При подкожном введении инсулина типичное осложнение — постинсулиновая липодистрофия.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q16",
+      "quizId": "meds-injections",
+      "text": "При внутримышечном введении масляных растворов могут возникнуть осложнения:",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "постинсулиновая липодистрофия"
+        },
+        {
+          "id": "b",
+          "text": "воздушная эмболия"
+        },
+        {
+          "id": "c",
+          "text": "тромбофлебит"
+        },
+        {
+          "id": "d",
+          "text": "масляная эмболия"
+        }
+      ],
+      "correctOptionId": "d",
+      "explanation": "При в/м введении масляных растворов возможно попадание масла в сосуд — масляная эмболия.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q17",
+      "quizId": "meds-injections",
+      "text": "В 1 мл инсулина содержится чаще всего:",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "25 000 ЕД"
+        },
+        {
+          "id": "b",
+          "text": "5000 ЕД"
+        },
+        {
+          "id": "c",
+          "text": "100 ЕД"
+        },
+        {
+          "id": "d",
+          "text": "40 ЕД"
+        }
+      ],
+      "correctOptionId": "d",
+      "explanation": "В 1 мл стандартного инсулина чаще всего содержится 40 ЕД (классическая учебная норма).",
+      "source": "старые мед.тесты.docx",
+      "status": "needs_review",
+      "confidence": "medium",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q18",
+      "quizId": "meds-injections",
+      "text": "В 1 мл гепарина содержится:",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "25 000 ЕД"
+        },
+        {
+          "id": "b",
+          "text": "5000 ЕД"
+        },
+        {
+          "id": "c",
+          "text": "200 ЕД"
+        },
+        {
+          "id": "d",
+          "text": "40 ЕД"
+        }
+      ],
+      "correctOptionId": "b",
+      "explanation": "В 1 мл гепарина обычно содержится 5000 ЕД.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q19",
+      "quizId": "meds-injections",
+      "text": "При применении гепарина могут возникнуть осложнения:",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "постинсулиновая липодистрофия"
+        },
+        {
+          "id": "b",
+          "text": "воздушная эмболия"
+        },
+        {
+          "id": "c",
+          "text": "тромбофлебит"
+        },
+        {
+          "id": "d",
+          "text": "гематурия"
+        }
+      ],
+      "correctOptionId": "d",
+      "explanation": "Осложнение терапии гепарином — кровоточивость, в т.ч. гематурия.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q20",
+      "quizId": "meds-injections",
+      "text": "Для разведения 100.000 ЕД пенициллина необходимо взять раствори-теля:",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "1 мл"
+        },
+        {
+          "id": "b",
+          "text": "2,5 мл"
+        },
+        {
+          "id": "c",
+          "text": "5 мл"
+        },
+        {
+          "id": "d",
+          "text": "10 мл"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Для разведения 100 000 ЕД пенициллина берут 1 мл растворителя (классическая учебная дозировка для в/м).",
+      "source": "старые мед.тесты.docx",
+      "status": "needs_review",
+      "confidence": "medium",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q21",
+      "quizId": "meds-injections",
+      "text": "Для оказания помощи при крапивнице применяют:",
+      "topic": "Неотложка",
+      "options": [
+        {
+          "id": "a",
+          "text": "амидопирин"
+        },
+        {
+          "id": "b",
+          "text": "пенициллин, тетрациклин"
+        },
+        {
+          "id": "c",
+          "text": "димедрол, супрастин, пипальфен, кальция хлорид"
+        },
+        {
+          "id": "d",
+          "text": "кофеин, кордиамин, коргликон, строфантин"
+        }
+      ],
+      "correctOptionId": "c",
+      "explanation": "При крапивнице применяют антигистаминные средства и кальция хлорид.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q22",
+      "quizId": "meds-injections",
+      "text": "Для повышения АД при анафилактическом шоке применяют:",
+      "topic": "Неотложка",
+      "options": [
+        {
+          "id": "a",
+          "text": "пенициллин"
+        },
+        {
+          "id": "b",
+          "text": "адреналин, мезатон, кофеин"
+        },
+        {
+          "id": "c",
+          "text": "эуфиллин, эфедрин"
+        },
+        {
+          "id": "d",
+          "text": "супрастин, димедрол, пипольфен, преднизолон"
+        }
+      ],
+      "correctOptionId": "b",
+      "explanation": "Для повышения АД при анафилаксии используют адреналин, мезатон, кофеин.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q23",
+      "quizId": "meds-injections",
+      "text": "Для снижения удушья при анафилактическом шоке применяют:",
+      "topic": "Неотложка",
+      "options": [
+        {
+          "id": "a",
+          "text": "пенициллин, тетрациклин"
+        },
+        {
+          "id": "b",
+          "text": "эуфиллин, олупент"
+        },
+        {
+          "id": "c",
+          "text": "супрастин, димедрол, пипольфен"
+        },
+        {
+          "id": "d",
+          "text": "адреналин, мезатон"
+        },
+        {
+          "id": "e",
+          "text": "анальгин, витамин В,противостолбнячная сыворотка"
+        }
+      ],
+      "correctOptionId": "b",
+      "explanation": "Для снятия бронхоспазма/удушья при анафилаксии применяют эуфиллин (и аналоги).",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q24",
+      "quizId": "meds-injections",
+      "text": "Для снятия аллергической реакции при анафилактическом шоке применяют:",
+      "topic": "Неотложка",
+      "options": [
+        {
+          "id": "a",
+          "text": "пенициллин"
+        },
+        {
+          "id": "b",
+          "text": "преднизолон"
+        },
+        {
+          "id": "c",
+          "text": "адреналин"
+        },
+        {
+          "id": "d",
+          "text": "коргликон"
+        }
+      ],
+      "correctOptionId": "b",
+      "explanation": "Для купирования аллергической реакции при шоке применяют глюкокортикоиды (преднизолон).",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q25",
+      "quizId": "meds-injections",
+      "text": "Наиболее часто аллергические реакции вызывают лекарства:",
+      "topic": "Неотложка",
+      "options": [
+        {
+          "id": "a",
+          "text": "адреналин, мезатон"
+        },
+        {
+          "id": "b",
+          "text": "пенициллин, противостолбнячная сыворотка, витамин В,, В"
+        },
+        {
+          "id": "c",
+          "text": "анальгин"
+        },
+        {
+          "id": "d",
+          "text": "эуфиллин, эфедрин, олупент"
+        },
+        {
+          "id": "e",
+          "text": "супрастин, пипольфен, димедрол"
+        }
+      ],
+      "correctOptionId": "b",
+      "explanation": "Чаще всего аллергию вызывают пенициллин, сыворотки и витамины группы B.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q26",
+      "quizId": "meds-injections",
+      "text": "Масляные стерильные растворы вводят только:",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "внутрикожно"
+        },
+        {
+          "id": "b",
+          "text": "подкожно"
+        },
+        {
+          "id": "c",
+          "text": "внутримышечно"
+        },
+        {
+          "id": "d",
+          "text": "внутривенно"
+        }
+      ],
+      "correctOptionId": "c",
+      "explanation": "Масляные стерильные растворы вводят только внутримышечно.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q27",
+      "quizId": "meds-injections",
+      "text": "Концентрация спирта для обработки места иньекции (в град.):",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "40"
+        },
+        {
+          "id": "b",
+          "text": "96"
+        },
+        {
+          "id": "c",
+          "text": "1"
+        },
+        {
+          "id": "d",
+          "text": "70"
+        }
+      ],
+      "correctOptionId": "d",
+      "explanation": "Место инъекции обрабатывают 70% этиловым спиртом.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q28",
+      "quizId": "meds-injections",
+      "text": "Угол наклона иглы при внутрикожной инъекции (в град.):",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "45"
+        },
+        {
+          "id": "b",
+          "text": "90"
+        },
+        {
+          "id": "c",
+          "text": "30"
+        },
+        {
+          "id": "d",
+          "text": "5"
+        }
+      ],
+      "correctOptionId": "d",
+      "explanation": "Внутрикожную инъекцию выполняют под углом около 5°.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    },
+    {
+      "id": "meds-q29",
+      "quizId": "meds-injections",
+      "text": "Глубина введения иглы при проведении внутрикожной инъекции:",
+      "topic": "Инъекции",
+      "options": [
+        {
+          "id": "a",
+          "text": "только срез иглы"
+        },
+        {
+          "id": "b",
+          "text": "на всю длину иглы"
+        },
+        {
+          "id": "c",
+          "text": "в зависимости от расположения сосуда"
+        },
+        {
+          "id": "d",
+          "text": "две трети иглы"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "При внутрикожной инъекции вводят только срез иглы.",
+      "source": "старые мед.тесты.docx",
+      "status": "published",
+      "confidence": "high",
+      "provenance": "best_effort"
+    }
+  ]
+}

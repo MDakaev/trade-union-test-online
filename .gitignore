@@ -1,0 +1,23 @@
+node_modules/
+dist/
+build/
+.DS_Store
+.env
+.env.*
+!.env.example
+apps/api/storage/*
+!apps/api/storage/.gitkeep
+apps/api/vendor/
+*.log
+.vite/
+coverage/
+playwright-report/
+test-results/
+.idea/
+.vscode/
+*.sqlite
+apps/api/database/*.sqlite
+
+# Raw lecture/test sources stay local; digitized content lives in content/
+/*.pdf
+/*.docx
