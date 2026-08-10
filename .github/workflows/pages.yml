@@ -26,6 +26,10 @@ jobs:
           cache-dependency-path: package-lock.json
       - name: Install
         run: npm ci
+      - name: Install linux rolldown binding
+        run: |
+          VER="$(node -p "require('./apps/web/node_modules/rolldown/package.json').optionalDependencies['@rolldown/binding-linux-x64-gnu']")"
+          npm install --no-save --no-package-lock "@rolldown/binding-linux-x64-gnu@${VER}"
       - name: Build demo
         run: npm run build:demo
       - name: Upload Pages artifact

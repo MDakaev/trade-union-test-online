@@ -15,6 +15,10 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
       - run: npm ci
+      - name: Install linux rolldown binding
+        run: |
+          VER="$(node -p "require('./apps/web/node_modules/rolldown/package.json').optionalDependencies['@rolldown/binding-linux-x64-gnu']")"
+          npm install --no-save --no-package-lock "@rolldown/binding-linux-x64-gnu@${VER}"
       - run: npm run build
       - run: npm run lint
 
