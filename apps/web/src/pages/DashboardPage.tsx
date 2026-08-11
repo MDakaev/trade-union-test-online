@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useApp } from '../lib/app-context'
+import { collectLatestMistakes } from '../lib/mistakes'
 
 export function DashboardPage() {
   const { course, progress } = useApp()
@@ -29,6 +30,7 @@ export function DashboardPage() {
   const recentAttempt = progress.attempts[0]
   const totalCards = course.lessons.reduce((total, lesson) => total + lesson.cards.length, 0)
   const dueCards = Math.max(0, totalCards - progress.masteredCards.length)
+  const mistakeCount = collectLatestMistakes(course, progress.attempts).length
   const hasProgress = completed > 0 || Object.keys(progress.lessonProgress).length > 0
 
   return (
@@ -106,8 +108,18 @@ export function DashboardPage() {
         <article className="stat-card">
           <span className="stat-icon stat-icon--amber"><Trophy size={20} /></span>
           <div><small>Последний тест</small><strong>{recentAttempt && recentAttempt.total > 0 ? Math.round((recentAttempt.score / recentAttempt.total) * 100) : 0}%</strong><em>{recentAttempt ? `${recentAttempt.score} из ${recentAttempt.total}` : 'Нет попыток'}</em></div>
-          <Link to={recentAttempt ? `/quiz/${recentAttempt.quizId}` : '/quiz'}>
-            {recentAttempt ? 'Повторить' : 'К тестам'} <ChevronRight size={15} />
+          <Link to={
+            recentAttempt && recentAttempt.score < recentAttempt.total
+              ? `/quiz/${recentAttempt.quizId}?mode=mistakes`
+              : recentAttempt
+                ? `/quiz/${recentAttempt.quizId}`
+                : '/quiz'
+          }>
+            {recentAttempt && recentAttempt.score < recentAttempt.total
+              ? 'Разобрать ошибки'
+              : recentAttempt
+                ? 'Повторить'
+                : 'К тестам'} <ChevronRight size={15} />
           </Link>
         </article>
       </section>
@@ -140,11 +152,23 @@ export function DashboardPage() {
 
         <aside className="panel review-panel">
           <div className="review-panel__art" aria-hidden="true"><Brain size={48} /></div>
-          <p className="eyebrow">Умное повторение</p>
-          <h2>Освежите знания</h2>
-          <p>Повторите карточки, которые ещё не отмечены как изученные.</p>
-          <div className="review-due"><span>{dueCards}</span><div><strong>карточек</strong><small>≈ {Math.max(1, Math.ceil(dueCards / 2))} минут</small></div></div>
-          <Link className="secondary-button" to="/review">Начать повторение <ArrowRight size={17} /></Link>
+          <p className="eyebrow">Повторение</p>
+          <h2>{mistakeCount > 0 ? 'Работа над ошибками' : 'Освежите знания'}</h2>
+          <p>
+            {mistakeCount > 0
+              ? 'Разберите ошибки с последних тестов и закрепите материал.'
+              : 'После теста ошибки появятся здесь. Карточки доступны короткой сессией.'}
+          </p>
+          <div className="review-due">
+            <span>{mistakeCount > 0 ? mistakeCount : Math.min(10, dueCards)}</span>
+            <div>
+              <strong>{mistakeCount > 0 ? 'ошибок' : 'карточек'}</strong>
+              <small>{mistakeCount > 0 ? 'с тестов' : `из ${dueCards} в запасе`}</small>
+            </div>
+          </div>
+          <Link className="secondary-button" to="/review">
+            {mistakeCount > 0 ? 'Разобрать ошибки' : 'Открыть повторение'} <ArrowRight size={17} />
+          </Link>
         </aside>
       </div>
     </div>

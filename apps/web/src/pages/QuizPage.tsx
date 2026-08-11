@@ -2,7 +2,6 @@ import {
   ArrowLeft,
   ArrowRight,
   Brain,
-  Check,
   CheckCircle2,
   Clock3,
   GraduationCap,
@@ -12,13 +11,19 @@ import {
   X,
 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
+import { MistakeReviewCard, QuestionSession } from '../components/QuizSession'
 import { useApp } from '../lib/app-context'
+import { wrongFromAnswers } from '../lib/mistakes'
+import type { Question } from '../lib/types'
 
-type Stage = 'intro' | 'active' | 'result'
+type Stage = 'intro' | 'active' | 'result' | 'mistakes' | 'practice' | 'practice-result'
+type MistakesReturn = 'intro' | 'result'
+
 
 export function QuizPage() {
   const { quizId = 'final' } = useParams()
+  const [searchParams] = useSearchParams()
   const { course, progress, saveAttempt } = useApp()
   const quiz = course.quizzes?.find((item) => item.id === quizId)
   const questions = useMemo(
@@ -28,33 +33,76 @@ export function QuizPage() {
   const [stage, setStage] = useState<Stage>('intro')
   const [index, setIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
+  const [practiceAnswers, setPracticeAnswers] = useState<Record<string, string>>({})
+  const [mistakeQueue, setMistakeQueue] = useState<Question[]>([])
+  const [mistakesReturn, setMistakesReturn] = useState<MistakesReturn>('result')
   const [checked, setChecked] = useState(false)
+
+  const lastAttempt = progress.attempts.find((attempt) => attempt.quizId === quizId)
+  const lastWrongCount = lastAttempt ? wrongFromAnswers(questions, lastAttempt.answers).length : 0
+
+  const reviewMode = searchParams.get('mode') === 'mistakes'
 
   useEffect(() => {
     setStage('intro')
     setIndex(0)
     setAnswers({})
+    setPracticeAnswers({})
+    setMistakeQueue([])
     setChecked(false)
   }, [quizId])
+
+  useEffect(() => {
+    if (!reviewMode) return
+    const last = progress.attempts.find((attempt) => attempt.quizId === quizId)
+    if (!last || questions.length === 0) return
+    const wrongs = wrongFromAnswers(questions, last.answers)
+    setAnswers({ ...last.answers })
+    setPracticeAnswers({})
+    setMistakeQueue(wrongs)
+    setMistakesReturn('intro')
+    setIndex(0)
+    setChecked(false)
+    setStage(wrongs.length > 0 ? 'mistakes' : 'intro')
+  }, [quizId, reviewMode, questions, progress.attempts])
 
   if (!quiz && course.quizzes?.length) {
     return <Navigate to="/quiz" replace />
   }
 
-  const current = questions[index]
-  const selected = answers[current?.id]
   const score = questions.reduce((sum, question) => sum + (answers[question.id] === question.correctOptionId ? 1 : 0), 0)
   const percent = questions.length > 0 ? Math.round((score / questions.length) * 100) : 0
   const gradeScale = course.brand?.gradeScale ?? { five: 90, four: 75, three: 60 }
   const grade = percent >= gradeScale.five ? 5 : percent >= gradeScale.four ? 4 : percent >= gradeScale.three ? 3 : 2
   const title = quiz?.title ?? 'Тест'
   const subtitle = quiz?.subtitle ?? 'Проверьте знания, получите оценку и разберите ошибки.'
+  const errorCount = questions.length - score
 
   const start = () => {
     setAnswers({})
+    setPracticeAnswers({})
+    setMistakeQueue([])
     setIndex(0)
     setChecked(false)
     setStage('active')
+  }
+
+  const openMistakes = (sourceAnswers: Record<string, string>, from: MistakesReturn) => {
+    const wrongs = wrongFromAnswers(questions, sourceAnswers)
+    setAnswers({ ...sourceAnswers })
+    setPracticeAnswers({})
+    setMistakeQueue(wrongs)
+    setMistakesReturn(from)
+    setIndex(0)
+    setChecked(false)
+    setStage(wrongs.length > 0 ? 'mistakes' : from)
+  }
+
+  const startPractice = () => {
+    setPracticeAnswers({})
+    setIndex(0)
+    setChecked(false)
+    setStage('practice')
   }
 
   const next = () => {
@@ -63,8 +111,34 @@ export function QuizPage() {
       return
     }
     if (index === questions.length - 1) {
-      saveAttempt(quizId, answers, score, questions.length)
+      const finalScore = questions.reduce(
+        (sum, question) => sum + (answers[question.id] === question.correctOptionId ? 1 : 0),
+        0,
+      )
+      saveAttempt(quizId, answers, finalScore, questions.length)
+      setMistakeQueue(wrongFromAnswers(questions, answers))
       setStage('result')
+      return
+    }
+    setIndex((value) => value + 1)
+    setChecked(false)
+  }
+
+  const nextMistake = () => {
+    if (index >= mistakeQueue.length - 1) {
+      setStage(mistakesReturn)
+      return
+    }
+    setIndex((value) => value + 1)
+  }
+
+  const nextPractice = () => {
+    if (!checked) {
+      setChecked(true)
+      return
+    }
+    if (index >= mistakeQueue.length - 1) {
+      setStage('practice-result')
       return
     }
     setIndex((value) => value + 1)
@@ -82,7 +156,6 @@ export function QuizPage() {
   }
 
   if (stage === 'intro') {
-    const last = progress.attempts.find((attempt) => attempt.quizId === quizId)
     return (
       <div className="quiz-intro">
         <div className="quiz-intro__art"><GraduationCap size={58} /></div>
@@ -94,16 +167,25 @@ export function QuizPage() {
           <div><span><Clock3 size={20} /></span><strong>≈ {quiz?.estimatedMinutes ?? 8} минут</strong><small>без ограничения</small></div>
           <div><span><Brain size={20} /></span><strong>С объяснениями</strong><small>учимся на ошибках</small></div>
         </div>
-        {last && (
+        {lastAttempt && (
           <div className="last-result">
             <Trophy size={20} />
             <span>Последний результат</span>
-            <strong>{Math.round((last.score / last.total) * 100)}%</strong>
+            <strong>{Math.round((lastAttempt.score / lastAttempt.total) * 100)}%</strong>
           </div>
         )}
         <button className="primary-button primary-button--large" onClick={start}>
           Начать тест <ArrowRight size={19} />
         </button>
+        {lastAttempt && lastWrongCount > 0 && (
+          <button
+            className="secondary-button"
+            type="button"
+            onClick={() => openMistakes(lastAttempt.answers, 'intro')}
+          >
+            <Brain size={17} /> Разобрать ошибки ({lastWrongCount})
+          </button>
+        )}
         <Link className="text-button quiz-back-link" to="/quiz"><ArrowLeft size={16} /> Все тесты</Link>
         <small className="quiz-note">Результат сохраняется автоматически</small>
       </div>
@@ -123,66 +205,179 @@ export function QuizPage() {
         </div>
         <div className="result-breakdown">
           <div><CheckCircle2 size={21} /><span><strong>{score}</strong> правильных</span></div>
-          <div><X size={21} /><span><strong>{questions.length - score}</strong> ошибок</span></div>
+          <div><X size={21} /><span><strong>{errorCount}</strong> ошибок</span></div>
         </div>
         <div className="result-actions">
-          <button className="secondary-button" onClick={start}><RotateCcw size={17} /> Пройти ещё раз</button>
-          <Link className="primary-button" to="/quiz">К каталогу тестов <ArrowRight size={17} /></Link>
+          {errorCount > 0 && (
+            <button className="primary-button" type="button" onClick={() => openMistakes(answers, 'result')}>
+              <Brain size={17} /> Разобрать ошибки
+            </button>
+          )}
+          <button className="secondary-button" type="button" onClick={start}>
+            <RotateCcw size={17} /> Пройти ещё раз
+          </button>
+          {errorCount === 0 ? (
+            <Link className="primary-button" to="/quiz">К каталогу тестов <ArrowRight size={17} /></Link>
+          ) : (
+            <Link className="text-button" to="/quiz">К каталогу тестов</Link>
+          )}
         </div>
       </div>
     )
   }
 
-  return (
-    <div className="quiz-active">
-      <header className="quiz-active__header">
-        <button className="text-button" onClick={() => setStage('intro')}><ArrowLeft size={17} /> Выйти</button>
-        <div className="quiz-counter"><span>Вопрос {index + 1}</span><strong>из {questions.length}</strong></div>
-        <span className="quiz-topic">{current.topic}</span>
-      </header>
-      <div className="quiz-progress"><span style={{ width: `${((index + 1) / questions.length) * 100}%` }} /></div>
-
-      <article className="question-card">
-        <p className="eyebrow">Выберите один ответ</p>
-        <h1>{current.text}</h1>
-        <div className="answer-options">
-          {current.options.map((option, optionIndex) => {
-            const isSelected = selected === option.id
-            const isCorrect = checked && option.id === current.correctOptionId
-            const isWrong = checked && isSelected && option.id !== current.correctOptionId
-            return (
-              <button
-                key={option.id}
-                type="button"
-                disabled={checked}
-                onClick={() => setAnswers((items) => ({ ...items, [current.id]: option.id }))}
-                className={`answer-option ${isSelected ? 'answer-option--selected' : ''} ${isCorrect ? 'answer-option--correct' : ''} ${isWrong ? 'answer-option--wrong' : ''}`}
-              >
-                <span>{String.fromCharCode(65 + optionIndex)}</span>
-                <strong>{option.text}</strong>
-                {isCorrect && <Check size={19} />}
-                {isWrong && <X size={19} />}
-              </button>
-            )
-          })}
-        </div>
-        {checked && (
-          <div className={`answer-explanation ${selected === current.correctOptionId ? 'answer-explanation--correct' : 'answer-explanation--wrong'}`}>
-            <span>{selected === current.correctOptionId ? <CheckCircle2 size={22} /> : <Brain size={22} />}</span>
-            <div>
-              <strong>{selected === current.correctOptionId ? 'Верно!' : 'Разберём ответ'}</strong>
-              <p>{current.explanation}</p>
-              <small>Источник: {current.source}</small>
-            </div>
+  if (stage === 'mistakes') {
+    if (mistakeQueue.length === 0) {
+      return (
+        <div className="quiz-result">
+          <div className="result-grade result-grade--5"><CheckCircle2 size={42} /></div>
+          <p className="eyebrow">Работа над ошибками</p>
+          <h1>Ошибок нет</h1>
+          <p>В этой попытке все ответы верные.</p>
+          <div className="result-actions">
+            <button className="secondary-button" type="button" onClick={() => setStage(mistakesReturn)}>Назад</button>
+            <Link className="primary-button" to="/quiz">К каталогу <ArrowRight size={17} /></Link>
           </div>
-        )}
-        <footer className="question-card__footer">
-          <span>{checked ? 'Объяснение сохранится в работе над ошибками' : 'Можно изменить ответ до проверки'}</span>
-          <button className="primary-button" disabled={!selected} onClick={next}>
-            {!checked ? 'Проверить' : index === questions.length - 1 ? 'Завершить' : 'Следующий вопрос'} <ArrowRight size={18} />
+        </div>
+      )
+    }
+
+    const current = mistakeQueue[Math.min(index, mistakeQueue.length - 1)]
+    const selectedId = answers[current.id]
+    const isLast = index >= mistakeQueue.length - 1
+
+    return (
+      <div className="quiz-active">
+        <header className="quiz-active__header">
+          <button className="text-button" type="button" onClick={() => setStage(mistakesReturn)}>
+            <ArrowLeft size={17} /> Назад
           </button>
-        </footer>
-      </article>
-    </div>
+          <div className="quiz-counter"><span>Ошибка {index + 1}</span><strong>из {mistakeQueue.length}</strong></div>
+          <span className="quiz-topic">Работа над ошибками</span>
+        </header>
+        <div className="quiz-progress"><span style={{ width: `${((index + 1) / mistakeQueue.length) * 100}%` }} /></div>
+
+        <MistakeReviewCard
+          question={current}
+          selectedId={selectedId}
+          footerHint={isLast ? 'Можно потренировать эти вопросы ещё раз' : 'Разберите каждый ошибочный ответ'}
+          footerAction={(
+            <div className="mistake-footer-actions">
+              {isLast && (
+                <button className="secondary-button" type="button" onClick={startPractice}>
+                  <RotateCcw size={17} /> Потренировать
+                </button>
+              )}
+              <button className="primary-button" type="button" onClick={nextMistake}>
+                {isLast ? (mistakesReturn === 'result' ? 'К результату' : 'Готово') : 'Следующая ошибка'} <ArrowRight size={18} />
+              </button>
+            </div>
+          )}
+        />
+      </div>
+    )
+  }
+
+  if (stage === 'practice-result') {
+    const practiceScore = mistakeQueue.reduce(
+      (sum, question) => sum + (practiceAnswers[question.id] === question.correctOptionId ? 1 : 0),
+      0,
+    )
+    const stillWrong = mistakeQueue.filter(
+      (question) => practiceAnswers[question.id] !== question.correctOptionId,
+    )
+    const practicePercent = mistakeQueue.length > 0
+      ? Math.round((practiceScore / mistakeQueue.length) * 100)
+      : 0
+
+    return (
+      <div className="quiz-result">
+        <div className={`result-grade ${stillWrong.length === 0 ? 'result-grade--5' : 'result-grade--3'}`}>
+          <span>{practicePercent}%</span>
+          <small>тренировка</small>
+        </div>
+        <p className="eyebrow">Повтор ошибочных</p>
+        <h1>{stillWrong.length === 0 ? 'Все ошибки закрыты!' : 'Ещё есть над чем поработать'}</h1>
+        <p>
+          Верно {practiceScore} из {mistakeQueue.length} ранее ошибочных вопросов.
+        </p>
+        <div className="result-actions">
+          {stillWrong.length > 0 && (
+            <button
+              className="primary-button"
+              type="button"
+              onClick={() => {
+                setMistakeQueue(stillWrong)
+                setPracticeAnswers({})
+                setIndex(0)
+                setChecked(false)
+                setStage('mistakes')
+              }}
+            >
+              <Brain size={17} /> Разобрать оставшиеся
+            </button>
+          )}
+          <button className="secondary-button" type="button" onClick={startPractice}>
+            <RotateCcw size={17} /> Ещё раз
+          </button>
+          <button className="text-button" type="button" onClick={() => setStage(mistakesReturn)}>
+            {mistakesReturn === 'result' ? 'К результату теста' : 'К тесту'}
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  if (stage === 'practice') {
+    const current = mistakeQueue[index]
+    if (!current) {
+      return (
+        <div className="quiz-result">
+          <p className="eyebrow">Тренировка</p>
+          <h1>Нет вопросов для повтора</h1>
+          <div className="result-actions">
+            <button className="primary-button" type="button" onClick={() => setStage(mistakesReturn)}>Назад</button>
+          </div>
+        </div>
+      )
+    }
+    const selected = practiceAnswers[current.id]
+
+    return (
+      <QuestionSession
+        current={current}
+        index={index}
+        total={mistakeQueue.length}
+        selected={selected}
+        checked={checked}
+        counterLabel="Повтор"
+        topicLabel="Тренировка ошибок"
+        onExit={() => setStage('mistakes')}
+        onSelect={(optionId) => setPracticeAnswers((items) => ({ ...items, [current.id]: optionId }))}
+        onNext={nextPractice}
+        footerHint={checked ? 'Закрепите объяснение и идите дальше' : 'Ответьте ещё раз на ошибочный вопрос'}
+        finishLabel="Завершить тренировку"
+      />
+    )
+  }
+
+  const current = questions[index]
+  const selected = answers[current?.id]
+
+  return (
+    <QuestionSession
+      current={current}
+      index={index}
+      total={questions.length}
+      selected={selected}
+      checked={checked}
+      counterLabel="Вопрос"
+      topicLabel={current.topic}
+      onExit={() => setStage('intro')}
+      onSelect={(optionId) => setAnswers((items) => ({ ...items, [current.id]: optionId }))}
+      onNext={next}
+      footerHint={checked ? 'Ошибки можно разобрать после теста' : 'Можно изменить ответ до проверки'}
+      finishLabel="Завершить"
+    />
   )
 }
