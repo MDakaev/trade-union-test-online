@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom'
 import { useApp } from '../lib/app-context'
 
 export function DashboardPage() {
-  const { course, user, progress } = useApp()
+  const { course, progress } = useApp()
   const totalLessons = course.lessons.filter((lesson) => lesson.status === 'published').length
   const completed = course.lessons.filter(
     (lesson) => lesson.status === 'published' && progress.completedLessons.includes(lesson.id),
@@ -29,18 +29,19 @@ export function DashboardPage() {
   const recentAttempt = progress.attempts[0]
   const totalCards = course.lessons.reduce((total, lesson) => total + lesson.cards.length, 0)
   const dueCards = Math.max(0, totalCards - progress.masteredCards.length)
+  const hasProgress = completed > 0 || Object.keys(progress.lessonProgress).length > 0
 
   return (
     <div className="dashboard">
       <section className="welcome-row">
         <div>
-          <p className="eyebrow">Добрый вечер, {user.name.split(' ')[0]}</p>
-          <h1>Продолжим обучение?</h1>
+          <p className="eyebrow">{course.title}</p>
+          <h1>{hasProgress ? 'Продолжим обучение?' : 'Начнём обучение?'}</h1>
           <p className="page-subtitle">Небольшой шаг сегодня — уверенные навыки завтра.</p>
         </div>
         <div className="streak-pill">
           <span><Flame size={20} fill="currentColor" /></span>
-          <div><strong>{progress.streak} дня</strong><small>серия занятий</small></div>
+          <div><strong>{progress.streak} {streakWord(progress.streak)}</strong><small>серия занятий</small></div>
         </div>
       </section>
 
@@ -148,4 +149,12 @@ export function DashboardPage() {
       </div>
     </div>
   )
+}
+
+function streakWord(days: number) {
+  const mod10 = days % 10
+  const mod100 = days % 100
+  if (mod10 === 1 && mod100 !== 11) return 'день'
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return 'дня'
+  return 'дней'
 }

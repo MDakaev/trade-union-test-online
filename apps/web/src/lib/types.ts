@@ -1,13 +1,4 @@
-export type Role = 'student' | 'admin'
 export type ContentStatus = 'draft' | 'published' | 'needs_review'
-
-export interface User {
-  id: string
-  name: string
-  login: string
-  group: string
-  role: Role
-}
 
 export interface LessonBlock {
   type: 'lead' | 'text' | 'callout' | 'steps' | 'facts'
@@ -104,14 +95,4 @@ export interface StudentProgress {
   streak: number
   lastStudyDate: string | null
   dailyGoal: number
-}
-
-export interface Invite {
-  id: string
-  codePreview: string
-  group: string
-  expiresAt: string
-  maxUses: number
-  uses: number
-  active: boolean
 }

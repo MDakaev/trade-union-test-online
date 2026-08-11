@@ -5,10 +5,10 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { demoAdmin, demoUser, initialProgress } from '../data/demoCourse'
+import { initialProgress } from '../data/demoCourse'
 import { AppContext, type AppContextValue } from './app-context'
 import { loadCourse } from './loadCourse'
-import type { Attempt, Course, StudentProgress, User } from './types'
+import type { Attempt, Course, StudentProgress } from './types'
 
 const STORAGE_KEY = 'trade-union-progress-v1'
 
@@ -43,7 +43,6 @@ function numberRecord(value: unknown): Record<string, number> {
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User>(demoUser)
   const [progress, setProgress] = useState<StudentProgress>(loadProgress)
   const [course, setCourse] = useState<Course | null>(null)
 
@@ -67,10 +66,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const updateProgress = useCallback((updater: (current: StudentProgress) => StudentProgress) => {
     setProgress(updater)
-  }, [])
-
-  const setRole = useCallback((role: AppContextValue['user']['role']) => {
-    setUser(role === 'admin' ? demoAdmin : demoUser)
   }, [])
 
   const setLessonProgress = useCallback((lessonId: string, value: number) => {
@@ -134,16 +129,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
         questions: [],
       },
       courseReady: course !== null,
-      user,
       progress,
-      isDemo: import.meta.env.VITE_APP_MODE !== 'production',
-      setRole,
       setLessonProgress,
       completeLesson,
       toggleCard,
       saveAttempt,
     }),
-    [completeLesson, course, progress, saveAttempt, setLessonProgress, setRole, toggleCard, user],
+    [completeLesson, course, progress, saveAttempt, setLessonProgress, toggleCard],
   )
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

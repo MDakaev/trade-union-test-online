@@ -1,64 +1,14 @@
-import type { Course, Invite, StudentProgress, User } from '../lib/types'
-
-export const demoUser: User = {
-  id: 'student-demo',
-  name: 'Алексей Морозов',
-  login: 'demo',
-  group: 'МС-26',
-  role: 'student',
-}
-
-export const demoAdmin: User = {
-  id: 'admin-demo',
-  name: 'Администратор',
-  login: 'admin',
-  group: 'Trade Union',
-  role: 'admin',
-}
+import type { Course, StudentProgress } from '../lib/types'
 
 export const initialProgress: StudentProgress = {
-  completedLessons: ['medical-law', 'hygiene-hands'],
-  lessonProgress: {
-    'medical-law': 100,
-    'hygiene-hands': 100,
-    anthropometry: 64,
-  },
-  masteredCards: ['card-vbi', 'card-rights', 'card-pulse'],
-  attempts: [
-    {
-      id: 'attempt-1',
-      quizId: 'final',
-      date: '2026-08-05T17:40:00.000Z',
-      score: 7,
-      total: 10,
-      answers: {},
-    },
-  ],
-  streak: 4,
-  lastStudyDate: '2026-08-06',
+  completedLessons: [],
+  lessonProgress: {},
+  masteredCards: [],
+  attempts: [],
+  streak: 0,
+  lastStudyDate: null,
   dailyGoal: 15,
 }
-
-export const demoInvites: Invite[] = [
-  {
-    id: 'invite-1',
-    codePreview: 'TU26-••••-8F2K',
-    group: 'МС-26',
-    expiresAt: '2026-09-01',
-    maxUses: 25,
-    uses: 18,
-    active: true,
-  },
-  {
-    id: 'invite-2',
-    codePreview: 'TU27-••••-4D7M',
-    group: 'МС-27',
-    expiresAt: '2026-10-15',
-    maxUses: 20,
-    uses: 6,
-    active: true,
-  },
-]
 
 export const demoCourse: Course = {
   id: 'junior-nurse-care',
