@@ -1,9 +1,25 @@
 import { spawn } from 'node:child_process'
+import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = path.dirname(fileURLToPath(import.meta.url))
 const webRoot = path.resolve(root, '..')
+const distDir = path.join(webRoot, 'dist')
+
+function writeSpaFallback() {
+  // GitHub Pages has no server rewrite to index.html. Serving the same shell as 404.html
+  // lets deep links (/quiz, /review, …) reload without a hard 404.
+  const indexHtml = path.join(distDir, 'index.html')
+  const fallbackHtml = path.join(distDir, '404.html')
+  if (!fs.existsSync(indexHtml)) {
+    console.error('SPA fallback skipped: dist/index.html missing')
+    return false
+  }
+  fs.copyFileSync(indexHtml, fallbackHtml)
+  console.log('Wrote dist/404.html for GitHub Pages SPA routes')
+  return true
+}
 
 const child = spawn('npx', ['vite', 'build'], {
   cwd: webRoot,
@@ -15,6 +31,9 @@ let exiting = false
 const finish = (code = 0) => {
   if (exiting) return
   exiting = true
+  if (code === 0) {
+    writeSpaFallback()
+  }
   try {
     child.kill('SIGTERM')
   } catch {
