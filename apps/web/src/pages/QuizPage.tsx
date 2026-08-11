@@ -132,6 +132,10 @@ export function QuizPage() {
     setIndex((value) => value + 1)
   }
 
+  const prevMistake = () => {
+    setIndex((value) => Math.max(0, value - 1))
+  }
+
   const nextPractice = () => {
     if (!checked) {
       setChecked(true)
@@ -244,6 +248,7 @@ export function QuizPage() {
 
     const current = mistakeQueue[Math.min(index, mistakeQueue.length - 1)]
     const selectedId = answers[current.id]
+    const isFirst = index <= 0
     const isLast = index >= mistakeQueue.length - 1
 
     return (
@@ -260,16 +265,19 @@ export function QuizPage() {
         <MistakeReviewCard
           question={current}
           selectedId={selectedId}
-          footerHint={isLast ? 'Можно потренировать эти вопросы ещё раз' : 'Разберите каждый ошибочный ответ'}
+          footerHint={isLast ? 'Можно потренировать эти вопросы ещё раз' : 'Листайте ошибки вперёд и назад'}
           footerAction={(
             <div className="mistake-footer-actions">
+              <button className="secondary-button" type="button" disabled={isFirst} onClick={prevMistake}>
+                <ArrowLeft size={17} /> Предыдущая
+              </button>
               {isLast && (
                 <button className="secondary-button" type="button" onClick={startPractice}>
                   <RotateCcw size={17} /> Потренировать
                 </button>
               )}
               <button className="primary-button" type="button" onClick={nextMistake}>
-                {isLast ? (mistakesReturn === 'result' ? 'К результату' : 'Готово') : 'Следующая ошибка'} <ArrowRight size={18} />
+                {isLast ? (mistakesReturn === 'result' ? 'К результату' : 'Готово') : 'Далее'} <ArrowRight size={18} />
               </button>
             </div>
           )}
