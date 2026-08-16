@@ -39,6 +39,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .brand__mark span:last-child { width: 7px; height: 20px; left: 15.5px; top: 9px; }
 .brand strong { display: block; color: var(--navy); font-weight: 800; font-size: 17px; letter-spacing: -.4px; }
 .brand small { display: block; margin-top: 1px; color: #98a2b3; font-size: 9px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+.brand__by { margin-top: 3px; letter-spacing: .04em; text-transform: none; font-weight: 650; }
 .sidebar__top { display: flex; align-items: center; justify-content: space-between; padding: 0 5px; }
 .sidebar__mobile-close { display: none!important; }
 .sidebar__nav { margin-top: 42px; }
@@ -323,7 +324,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .topbar{min-height:58px;padding:0 17px}.mobile-menu{display:grid}.collapse-button{display:none}
   .topbar__crumb{margin-left:7px}.topbar__crumb span{display:none}
   .page{padding:25px 16px 90px}
-  .mobile-tabs{position:fixed;inset:auto 0 0;z-index:32;display:grid;grid-template-columns:repeat(4,1fr);height:64px;padding:6px 6px max(6px,env(safe-area-inset-bottom));border-top:1px solid var(--line);background:rgba(255,255,255,.96);backdrop-filter:blur(15px)}
+  .mobile-tabs{position:fixed;inset:auto 0 0;z-index:32;display:grid;grid-template-columns:repeat(5,1fr);height:64px;padding:6px 6px max(6px,env(safe-area-inset-bottom));border-top:1px solid var(--line);background:rgba(255,255,255,.96);backdrop-filter:blur(15px)}
   .mobile-tabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#98a2b3;font-size:7px;font-weight:700}
   .mobile-tabs a.active,.mobile-tabs a[aria-current=page]{color:var(--blue)}
   .hero-study-card{grid-template-columns:1fr}.hero-study-card__visual{display:none}

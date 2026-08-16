@@ -1,6 +1,7 @@
 import {
   BookOpen,
   GraduationCap,
+  HeartHandshake,
   LayoutDashboard,
   Menu,
   PanelLeftClose,
@@ -11,6 +12,8 @@ import {
 import { useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useApp } from '../lib/app-context'
+
+const CLOUDTIPS_URL = 'https://pay.cloudtips.ru/p/23b7b610'
 
 const navigation = [
   { to: '/', label: 'Главная', icon: LayoutDashboard },
@@ -29,6 +32,7 @@ function Brand() {
       <div>
         <strong>Trade Union</strong>
         <small>Learning platform</small>
+        <small className="brand__by">By Musafir-dakaev</small>
       </div>
     </div>
   )
@@ -80,6 +84,16 @@ export function AppShell() {
               <span>{label}</span>
             </NavLink>
           ))}
+          <a
+            className="nav-item"
+            href={CLOUDTIPS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={closeMobile}
+          >
+            <HeartHandshake size={20} strokeWidth={1.9} />
+            <span>Поблагодарить автора</span>
+          </a>
         </nav>
 
         <div className="sidebar__upgrade">
@@ -131,6 +145,10 @@ export function AppShell() {
             <span>{label}</span>
           </NavLink>
         ))}
+        <a href={CLOUDTIPS_URL} target="_blank" rel="noopener noreferrer">
+          <HeartHandshake size={21} />
+          <span>Спасибо</span>
+        </a>
       </nav>
     </div>
   )

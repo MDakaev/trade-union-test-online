@@ -140,7 +140,7 @@
 | ID | Ответ | Статус | Тема |
 |---|---|---|---|
 | care-q1 | **c** | `published` | Антропометрия |
-| care-q2 | **d** | `published` | Термометрия |
+| care-q2 | **c** | `published` | Термометрия |
 | care-q3 | **b** | `published` | Термометрия |
 | care-q4 | **a** | `published` | Опрелости |
 | care-q5 | **b** | `published` | Гигиена и уход |
